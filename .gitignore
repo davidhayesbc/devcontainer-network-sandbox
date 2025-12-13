@@ -1,0 +1,9 @@
+# Add .devcontainer to gitignore exceptions
+!.devcontainer/
+!.devcontainer/**
+
+# Ignore generated files within .devcontainer
+.devcontainer/**/node_modules/
+.devcontainer/**/__pycache__/
+.devcontainer/**/venv/
+.devcontainer/**/.env

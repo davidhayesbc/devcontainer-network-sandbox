@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Network Policy Configuration",
+  "description": "Configuration for controlling outbound network access in devcontainers",
+  "type": "object",
+  "required": ["activeProfile", "profiles"],
+  "properties": {
+    "activeProfile": {
+      "type": "string",
+      "description": "The currently active network profile",
+      "enum": ["strict", "development", "open"]
+    },
+    "profiles": {
+      "type": "object",
+      "description": "Named network access profiles",
+      "properties": {
+        "strict": { "$ref": "#/definitions/profile" },
+        "development": { "$ref": "#/definitions/profile" },
+        "open": { "$ref": "#/definitions/profile" }
+      }
+    },
+    "customAllowlist": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "domains": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "ips": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "copilotEndpoints": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "domains": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "logAllowed": { "type": "boolean" },
+        "logBlocked": { "type": "boolean" },
+        "logFile": { "type": "string" }
+      }
+    }
+  },
+  "definitions": {
+    "profile": {
+      "type": "object",
+      "required": ["description", "allowedDomains", "blockAll"],
+      "properties": {
+        "description": { "type": "string" },
+        "allowedDomains": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowedIPs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "blockAll": { "type": "boolean" }
+      }
+    }
+  }
+}

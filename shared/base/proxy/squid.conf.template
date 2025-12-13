@@ -1,0 +1,70 @@
+# Squid proxy configuration for devcontainer network filtering
+# This file is AUTO-GENERATED from network-policy.json
+# DO NOT EDIT MANUALLY - use scripts/update-network-policy.sh instead
+
+# Recommended minimum configuration:
+acl SSL_ports port 443
+acl Safe_ports port 80
+acl Safe_ports port 443
+acl Safe_ports port 1025-65535
+acl CONNECT method CONNECT
+
+# Deny requests to certain unsafe ports
+http_access deny !Safe_ports
+http_access deny CONNECT !SSL_ports
+
+# Allow localhost
+acl localhost src 127.0.0.1/32 ::1
+http_access allow localhost
+
+# Allow from devcontainer network
+acl devcontainer_network src 172.16.0.0/12
+acl devcontainer_network src 192.168.0.0/16
+acl devcontainer_network src 10.0.0.0/8
+
+# ALLOWLIST - GitHub Copilot required endpoints
+acl copilot_domains dstdomain .githubusercontent.com
+acl copilot_domains dstdomain copilot-proxy.githubusercontent.com
+acl copilot_domains dstdomain api.github.com
+acl copilot_domains dstdomain github.com
+
+# ALLOWLIST - NuGet package sources
+acl nuget_domains dstdomain .nuget.org
+acl nuget_domains dstdomain api.nuget.org
+
+# ALLOWLIST - Additional allowed domains from network-policy.json
+# These will be populated by update-network-policy.sh based on active profile
+
+{{ALLOWED_DOMAINS_ACL}}
+
+# SSL bump configuration to allow HTTPS inspection
+# Note: For production use, you may want to disable SSL bumping
+# and use domain-based filtering only
+http_port 3128
+
+# Access control
+http_access allow devcontainer_network copilot_domains
+http_access allow devcontainer_network nuget_domains
+{{ALLOWED_DOMAINS_ACCESS}}
+http_access deny all
+
+# Logging
+access_log /var/log/squid/access.log squid
+cache_log /var/log/squid/cache.log
+
+# Cache settings
+cache_dir ufs /var/spool/squid 100 16 256
+coredump_dir /var/spool/squid
+
+# Refresh patterns for package caching
+refresh_pattern ^ftp: 1440 20% 10080
+refresh_pattern ^gopher: 1440 0% 1440
+refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
+refresh_pattern . 0 20% 4320
+
+# DNS settings
+dns_nameservers 8.8.8.8 8.8.4.4
+
+# Forwarding
+# Disable forwarding to parent proxy
+never_direct allow all

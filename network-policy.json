@@ -1,0 +1,81 @@
+{
+  "$schema": "./network-policy.schema.json",
+  "description": "Network access control for devcontainers. Modify the active profile or allowlists to control outbound connectivity.",
+  
+  "activeProfile": "strict",
+  
+  "profiles": {
+    "strict": {
+      "description": "Minimal access - only essential services for .NET development and Copilot",
+      "allowedDomains": [
+        "github.com",
+        "api.github.com",
+        "*.githubusercontent.com",
+        "copilot-proxy.githubusercontent.com",
+        "api.nuget.org",
+        "*.nuget.org",
+        "objects.githubusercontent.com"
+      ],
+      "allowedIPs": [],
+      "blockAll": true
+    },
+    
+    "development": {
+      "description": "Development mode - common development services allowed",
+      "allowedDomains": [
+        "github.com",
+        "api.github.com",
+        "*.githubusercontent.com",
+        "copilot-proxy.githubusercontent.com",
+        "api.nuget.org",
+        "*.nuget.org",
+        "objects.githubusercontent.com",
+        "registry.npmjs.org",
+        "*.docker.io",
+        "registry-1.docker.io",
+        "auth.docker.io",
+        "production.cloudflare.docker.com",
+        "docker.io",
+        "mcr.microsoft.com",
+        "*.microsoft.com",
+        "*.visualstudio.com",
+        "stackoverflow.com",
+        "*.stackexchange.com"
+      ],
+      "allowedIPs": [],
+      "blockAll": true
+    },
+    
+    "open": {
+      "description": "Open access - all outbound connections allowed (not recommended)",
+      "allowedDomains": ["*"],
+      "allowedIPs": [],
+      "blockAll": false
+    }
+  },
+  
+  "customAllowlist": {
+    "description": "Add custom domains here that should always be allowed, regardless of profile",
+    "domains": [
+      
+    ],
+    "ips": []
+  },
+  
+  "copilotEndpoints": {
+    "description": "GitHub Copilot required endpoints (automatically included)",
+    "domains": [
+      "copilot-proxy.githubusercontent.com",
+      "api.github.com",
+      "github.com",
+      "*.githubusercontent.com"
+    ]
+  },
+  
+  "logging": {
+    "enabled": true,
+    "logAllowed": false,
+    "logBlocked": true,
+    "logFile": "/var/log/squid/access.log"
+  }
+}

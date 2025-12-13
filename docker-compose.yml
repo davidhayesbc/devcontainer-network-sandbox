@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  # Network filtering proxy
+  proxy:
+    image: ubuntu/squid:latest
+    container_name: game-economy-proxy
+    volumes:
+      - ./proxy/squid.conf:/etc/squid/squid.conf:ro
+      - squid-cache:/var/spool/squid
+    ports:
+      - "3128:3128"
+    networks:
+      - devcontainer-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "squidclient", "-h", "localhost", "mgr:info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Development container
+  devcontainer:
+    build:
+      context: ./shared/base/dockerfiles
+      dockerfile: Dockerfile.dotnet
+    container_name: game-economy-devcontainer
+    volumes:
+      # Clone the repository into the container (not bind mount from host)
+      - workspace-data:/workspaces
+      # Mount shared scripts for initialization
+      - ./shared/base/scripts:/tmp/devcontainer-scripts:ro
+      # Git config
+      - ~/.gitconfig:/home/vscode/.gitconfig:ro
+      # SSH keys for git operations (if needed)
+      - ~/.ssh:/home/vscode/.ssh:ro
+    environment:
+      - REPO_URL=https://github.com/davidhayesbc/Game.git
+      - REPO_NAME=Game
+      - NETWORK_PROFILE=strict
+    networks:
+      - devcontainer-network
+    depends_on:
+      proxy:
+        condition: service_healthy
+    # Keep container running
+    command: sleep infinity
+    # Disable direct internet access - must go through proxy
+    cap_drop:
+      - NET_RAW
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+networks:
+  devcontainer-network:
+    driver: bridge
+    internal: false # Allow external access through proxy
+
+volumes:
+  workspace-data:
+    name: game-economy-workspace
+  squid-cache:
+    name: game-economy-squid-cache
