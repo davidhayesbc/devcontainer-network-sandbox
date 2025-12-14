@@ -6,19 +6,19 @@ Get up and running with network-sandboxed development containers in minutes.
 
 Pre-configured development environments that:
 
--   ✅ **Clone your code** from GitHub into an isolated container
--   ✅ **Sandbox network access** - only allowed domains can be reached
--   ✅ **Enable GitHub Copilot** with proper API access
--   ✅ **Include language tools** - SDKs, formatters, linters ready to go
--   ✅ **Work cross-platform** - Windows, Mac, Linux with Docker
+- ✅ **Clone your code** from GitHub into an isolated container
+- ✅ **Sandbox network access** - only allowed domains can be reached
+- ✅ **Enable GitHub Copilot** with proper API access
+- ✅ **Include language tools** - SDKs, formatters, linters ready to go
+- ✅ **Work cross-platform** - Windows, Mac, Linux with Docker
 
 ## 📦 Available Templates
 
-| Template                     | Use For                    | Base Image  | Package Manager |
-| ---------------------------- | -------------------------- | ----------- | --------------- |
+| Template                    | Use For                    | Base Image  | Package Manager |
+| --------------------------- | -------------------------- | ----------- | --------------- |
 | [.NET](./dotnet/Dockerfile) | ASP.NET, Blazor, C#        | .NET 10 SDK | NuGet           |
-| [Node.js](nodejs/)           | Express, React, Next.js    | Node 20 LTS | NPM/Yarn        |
-| [Python](python/)            | Flask, Django, FastAPI, ML | Python 3.12 | pip/Poetry      |
+| [Node.js](nodejs/)          | Express, React, Next.js    | Node 20 LTS | NPM/Yarn        |
+| [Python](python/)           | Flask, Django, FastAPI, ML | Python 3.12 | pip/Poetry      |
 
 ## ⚡ Quick Start (3 Steps)
 
@@ -52,9 +52,9 @@ Edit `.devcontainer/docker-compose.yml` in your project:
 
 ```yaml
 environment:
-    - REPO_URL=https://github.com/yourorg/yourrepo.git
-    - REPO_NAME=yourrepo # Must match repo name exactly
-    - NETWORK_PROFILE=strict
+  - REPO_URL=https://github.com/yourorg/yourrepo.git
+  - REPO_NAME=yourrepo # Must match repo name exactly
+  - NETWORK_PROFILE=strict
 ```
 
 ### Step 3: Open in Container
@@ -79,9 +79,9 @@ Each template includes 3 profiles:
 
 **What's allowed:**
 
--   GitHub (for git operations and Copilot)
--   Language package manager (NuGet, NPM, PyPI)
--   Nothing else
+- GitHub (for git operations and Copilot)
+- Language package manager (NuGet, NPM, PyPI)
+- Nothing else
 
 **Use when:** You want maximum security
 
@@ -89,11 +89,11 @@ Each template includes 3 profiles:
 
 **What's allowed:**
 
--   Everything in Strict, plus:
--   Docker Hub
--   Stack Overflow
--   Microsoft sites
--   Common CDNs
+- Everything in Strict, plus:
+- Docker Hub
+- Stack Overflow
+- Microsoft sites
+- Common CDNs
 
 **Use when:** You need common development resources
 
@@ -101,7 +101,7 @@ Each template includes 3 profiles:
 
 **What's allowed:**
 
--   Everything (no restrictions)
+- Everything (no restrictions)
 
 **Use when:** Debugging network issues only
 
@@ -125,9 +125,9 @@ Edit `.devcontainer/network-policy.json`:
 
 ```json
 {
-    "customAllowlist": {
-        "domains": ["api.example.com", "cdn.example.com", ".yourdomain.com"]
-    }
+  "customAllowlist": {
+    "domains": ["api.example.com", "cdn.example.com", ".yourdomain.com"]
+  }
 }
 ```
 
@@ -151,14 +151,14 @@ Then update the proxy config:
 
 ```json
 {
-    "forwardPorts": [5000, 5001] // HTTP, HTTPS
+  "forwardPorts": [5000, 5001] // HTTP, HTTPS
 }
 ```
 
 **Common additional domains:**
 
--   `mcr.microsoft.com` - Microsoft container registry
--   `*.visualstudio.com` - Visual Studio services
+- `mcr.microsoft.com` - Microsoft container registry
+- `*.visualstudio.com` - Visual Studio services
 
 **See:** Main `.devcontainer/README.md`
 
@@ -168,15 +168,15 @@ Then update the proxy config:
 
 ```json
 {
-    "forwardPorts": [3000, 3001] // Next.js, React, Express
+  "forwardPorts": [3000, 3001] // Next.js, React, Express
 }
 ```
 
 **Common additional domains:**
 
--   `registry.yarnpkg.com` - Yarn packages
--   `cdn.jsdelivr.net` - CDN
--   `unpkg.com` - Package CDN
+- `registry.yarnpkg.com` - Yarn packages
+- `cdn.jsdelivr.net` - CDN
+- `unpkg.com` - Package CDN
 
 **See:** [Node.js Template README](nodejs/README.md)
 
@@ -186,15 +186,15 @@ Then update the proxy config:
 
 ```json
 {
-    "forwardPorts": [8000, 8888] // Django/FastAPI, Jupyter
+  "forwardPorts": [8000, 8888] // Django/FastAPI, Jupyter
 }
 ```
 
 **Common additional domains:**
 
--   `download.pytorch.org` - PyTorch models
--   `storage.googleapis.com` - TensorFlow
--   `huggingface.co` - ML models
+- `download.pytorch.org` - PyTorch models
+- `storage.googleapis.com` - TensorFlow
+- `huggingface.co` - ML models
 
 **See:** [Python Template README](python/README.md)
 
@@ -257,9 +257,9 @@ Select-String "copilot|github" .devcontainer/proxy/squid.conf
 
 Check `docker-compose.yml`:
 
--   `REPO_URL` is correct and accessible
--   `REPO_NAME` matches the repository name exactly
--   You have git credentials set up (see below)
+- `REPO_URL` is correct and accessible
+- `REPO_NAME` matches the repository name exactly
+- You have git credentials set up (see below)
 
 ### Git Authentication
 
@@ -284,25 +284,25 @@ Create custom profiles in `network-policy.json`:
 
 ```json
 {
-    "profiles": {
-        "strict": {
-            /* ... */
-        },
-        "development": {
-            /* ... */
-        },
-        "production-debug": {
-            "description": "Production debugging with specific APIs",
-            "allowedDomains": [
-                "github.com",
-                "api.github.com",
-                ".githubusercontent.com",
-                "api.production.com",
-                "monitoring.production.com"
-            ],
-            "blockAll": true
-        }
+  "profiles": {
+    "strict": {
+      /* ... */
+    },
+    "development": {
+      /* ... */
+    },
+    "production-debug": {
+      "description": "Production debugging with specific APIs",
+      "allowedDomains": [
+        "github.com",
+        "api.github.com",
+        ".githubusercontent.com",
+        "api.production.com",
+        "monitoring.production.com"
+      ],
+      "blockAll": true
     }
+  }
 }
 ```
 
@@ -326,29 +326,29 @@ The devcontainer can be used in CI:
 - name: Run tests in devcontainer
   uses: devcontainers/ci@v0.3
   with:
-      runCmd: npm test
+    runCmd: npm test
 ```
 
 ## 📚 Learn More
 
--   **Main Documentation:** [../.devcontainer/README.md](../README.md)
--   **Template List:** [README.md](README.md)
--   **Node.js Template:** [nodejs/README.md](nodejs/README.md)
--   **Python Template:** [python/README.md](python/README.md)
--   **VS Code DevContainers:** [code.visualstudio.com/docs/devcontainers](https://code.visualstudio.com/docs/devcontainers/containers)
+- **Main Documentation:** [../.devcontainer/README.md](../README.md)
+- **Template List:** [README.md](README.md)
+- **Node.js Template:** [nodejs/README.md](nodejs/README.md)
+- **Python Template:** [python/README.md](python/README.md)
+- **VS Code DevContainers:** [code.visualstudio.com/docs/devcontainers](https://code.visualstudio.com/docs/devcontainers/containers)
 
 ## ✅ Success Checklist
 
 After setting up your devcontainer:
 
--   [ ] Container builds successfully
--   [ ] Repository clones automatically
--   [ ] Dependencies install (packages restore)
--   [ ] GitHub Copilot works
--   [ ] Your app/tests run
--   [ ] Network policy is appropriate (strict by default)
--   [ ] `.devcontainer/` committed to git
--   [ ] Team can use same setup
+- [ ] Container builds successfully
+- [ ] Repository clones automatically
+- [ ] Dependencies install (packages restore)
+- [ ] GitHub Copilot works
+- [ ] Your app/tests run
+- [ ] Network policy is appropriate (strict by default)
+- [ ] `.devcontainer/` committed to git
+- [ ] Team can use same setup
 
 ## 🆘 Getting Help
 

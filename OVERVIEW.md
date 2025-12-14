@@ -132,15 +132,19 @@ Controls all network access:
 
 ```json
 {
-    "activeProfile": "strict",
-    "profiles": {
-        "strict": {
-            "allowedDomains": ["github.com", "api.nuget.org", ".githubusercontent.com"]
-        }
-    },
-    "customAllowlist": {
-        "domains": []
+  "activeProfile": "strict",
+  "profiles": {
+    "strict": {
+      "allowedDomains": [
+        "github.com",
+        "api.nuget.org",
+        ".githubusercontent.com"
+      ]
     }
+  },
+  "customAllowlist": {
+    "domains": []
+  }
 }
 ```
 
@@ -150,9 +154,9 @@ Repository and environment:
 
 ```yaml
 environment:
-    - REPO_URL=https://github.com/davidhayesbc/Game.git
-    - REPO_NAME=Game
-    - NETWORK_PROFILE=strict
+  - REPO_URL=https://github.com/davidhayesbc/Game.git
+  - REPO_NAME=Game
+  - NETWORK_PROFILE=strict
 ```
 
 ## Troubleshooting
@@ -195,16 +199,16 @@ Select-String "copilot" .devcontainer/proxy/squid.conf
 
 ## Future Enhancements
 
--   [ ] LiteLLM integration for Copilot logging
--   [ ] Pre-commit hooks to validate network-policy.json
--   [ ] Automated tests for network isolation
--   [ ] More language templates (Go, Rust, Java)
--   [ ] Network usage analytics dashboard
+- [ ] LiteLLM integration for Copilot logging
+- [ ] Pre-commit hooks to validate network-policy.json
+- [ ] Automated tests for network isolation
+- [ ] More language templates (Go, Rust, Java)
+- [ ] Network usage analytics dashboard
 
 ## Documentation
 
--   [Full README](.devcontainer/README.md) - Complete setup guide
--   [Templates README](.devcontainer/shared/shared/templates/nodejs/README.md) - Node.js template (similar location for Python in the same folder)
+- [Full README](.devcontainer/README.md) - Complete setup guide
+- [Templates README](.devcontainer/shared/shared/templates/nodejs/README.md) - Node.js template (similar location for Python in the same folder)
 
 ## Support
 

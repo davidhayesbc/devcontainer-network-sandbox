@@ -4,14 +4,14 @@ Network-sandboxed development container for Python projects with GitHub Copilot 
 
 ## 🎯 What's Included
 
--   **Python 3.12** - Latest stable Python version
--   **pip & Poetry** - Package management tools
--   **Black & Flake8** - Code formatting and linting
--   **Pylint** - Static code analysis
--   **pytest** - Testing framework
--   **IPython** - Enhanced interactive shell
--   **Network Sandboxing** - Controlled outbound access via proxy
--   **GitHub Copilot** - Pre-configured and ready to use
+- **Python 3.12** - Latest stable Python version
+- **pip & Poetry** - Package management tools
+- **Black & Flake8** - Code formatting and linting
+- **Pylint** - Static code analysis
+- **pytest** - Testing framework
+- **IPython** - Enhanced interactive shell
+- **Network Sandboxing** - Controlled outbound access via proxy
+- **GitHub Copilot** - Pre-configured and ready to use
 
 ## 🚀 Quick Start
 
@@ -31,26 +31,26 @@ Edit `.devcontainer/docker-compose.yml`:
 
 ```yaml
 environment:
-    - REPO_URL=https://github.com/yourorg/yourrepo.git
-    - REPO_NAME=yourrepo # Must match the repo name
-    - NETWORK_PROFILE=strict
+  - REPO_URL=https://github.com/yourorg/yourrepo.git
+  - REPO_NAME=yourrepo # Must match the repo name
+  - NETWORK_PROFILE=strict
 ```
 
 ### 3. Customize Network Policy (Optional)
 
 The template comes with a `strict` profile that includes:
 
--   `pypi.org` & `files.pythonhosted.org` - Python packages
--   `github.com` - Git operations
--   GitHub Copilot endpoints
+- `pypi.org` & `files.pythonhosted.org` - Python packages
+- `github.com` - Git operations
+- GitHub Copilot endpoints
 
 To add more domains, edit `.devcontainer/network-policy.json`:
 
 ```json
 {
-    "customAllowlist": {
-        "domains": ["download.pytorch.org", "*.anaconda.org"]
-    }
+  "customAllowlist": {
+    "domains": ["download.pytorch.org", "*.anaconda.org"]
+  }
 }
 ```
 
@@ -110,18 +110,18 @@ Edit `.devcontainer/devcontainer.json`:
 
 ```json
 {
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "ms-python.vscode-pylance",
-                "ms-python.black-formatter",
-                "ms-python.flake8",
-                "GitHub.copilot",
-                "ms-toolsai.jupyter"
-            ]
-        }
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        "GitHub.copilot",
+        "ms-toolsai.jupyter"
+      ]
     }
+  }
 }
 ```
 
@@ -131,13 +131,13 @@ For Flask/Django/FastAPI apps, configure ports in `.devcontainer/devcontainer.js
 
 ```json
 {
-    "forwardPorts": [5000, 8000, 8080],
-    "portsAttributes": {
-        "8000": {
-            "label": "Django/FastAPI",
-            "onAutoForward": "notify"
-        }
+  "forwardPorts": [5000, 8000, 8080],
+  "portsAttributes": {
+    "8000": {
+      "label": "Django/FastAPI",
+      "onAutoForward": "notify"
     }
+  }
 }
 ```
 
@@ -147,14 +147,14 @@ For Flask/Django/FastAPI apps, configure ports in `.devcontainer/devcontainer.js
 
 ```json
 {
-    "allowedDomains": [
-        "pypi.org",
-        ".pypi.org",
-        "files.pythonhosted.org",
-        "github.com",
-        "api.github.com",
-        ".githubusercontent.com"
-    ]
+  "allowedDomains": [
+    "pypi.org",
+    ".pypi.org",
+    "files.pythonhosted.org",
+    "github.com",
+    "api.github.com",
+    ".githubusercontent.com"
+  ]
 }
 ```
 
@@ -162,16 +162,16 @@ For Flask/Django/FastAPI apps, configure ports in `.devcontainer/devcontainer.js
 
 ```json
 {
-    "customAllowlist": {
-        "domains": [
-            "download.pytorch.org", // PyTorch models
-            "storage.googleapis.com", // TensorFlow/ML resources
-            "repo.anaconda.com", // Conda packages
-            "*.anaconda.org",
-            "huggingface.co", // Hugging Face models
-            "cdn-lfs.huggingface.co"
-        ]
-    }
+  "customAllowlist": {
+    "domains": [
+      "download.pytorch.org", // PyTorch models
+      "storage.googleapis.com", // TensorFlow/ML resources
+      "repo.anaconda.com", // Conda packages
+      "*.anaconda.org",
+      "huggingface.co", // Hugging Face models
+      "cdn-lfs.huggingface.co"
+    ]
+  }
 }
 ```
 
@@ -385,13 +385,13 @@ Check `.devcontainer/devcontainer.json`:
 
 ```json
 {
-    "forwardPorts": [8888],
-    "portsAttributes": {
-        "8888": {
-            "label": "Jupyter",
-            "onAutoForward": "openBrowser"
-        }
+  "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": {
+      "label": "Jupyter",
+      "onAutoForward": "openBrowser"
     }
+  }
 }
 ```
 
@@ -440,10 +440,10 @@ pip install -r requirements.txt
 
 ## 📚 Additional Resources
 
--   [Python in Containers](https://code.visualstudio.com/docs/containers/overview)
--   [pip Proxy Configuration](https://pip.pypa.io/en/stable/topics/configuration/)
--   [Poetry Documentation](https://python-poetry.org/docs/)
--   [DevContainer Python Features](https://github.com/devcontainers/features/tree/main/src/python)
+- [Python in Containers](https://code.visualstudio.com/docs/containers/overview)
+- [pip Proxy Configuration](https://pip.pypa.io/en/stable/topics/configuration/)
+- [Poetry Documentation](https://python-poetry.org/docs/)
+- [DevContainer Python Features](https://github.com/devcontainers/features/tree/main/src/python)
 
 ## 🔄 Keeping Template Updated
 
@@ -451,9 +451,9 @@ When Python versions change:
 
 1. Update base image in `python/Dockerfile`:
 
-    ```dockerfile
-    FROM mcr.microsoft.com/devcontainers/python:1-3.13-bookworm
-    ```
+   ```dockerfile
+   FROM mcr.microsoft.com/devcontainers/python:1-3.13-bookworm
+   ```
 
 2. Update Python version references in this README
 
@@ -461,17 +461,17 @@ When Python versions change:
 
 ## ✅ Checklist for New Projects
 
--   [ ] Copy template to project directory
--   [ ] Update `REPO_URL` in `docker-compose.yml`
--   [ ] Update `REPO_NAME` in `docker-compose.yml`
--   [ ] Create `requirements.txt` or `pyproject.toml`
--   [ ] Add project-specific domains to `network-policy.json`
--   [ ] Configure forwarded ports for your app
--   [ ] Add project-specific VS Code extensions
--   [ ] Update `post-create.sh` with setup commands
--   [ ] Configure Black/Flake8 settings
--   [ ] Test container build and network access
--   [ ] Commit `.devcontainer/` to version control
+- [ ] Copy template to project directory
+- [ ] Update `REPO_URL` in `docker-compose.yml`
+- [ ] Update `REPO_NAME` in `docker-compose.yml`
+- [ ] Create `requirements.txt` or `pyproject.toml`
+- [ ] Add project-specific domains to `network-policy.json`
+- [ ] Configure forwarded ports for your app
+- [ ] Add project-specific VS Code extensions
+- [ ] Update `post-create.sh` with setup commands
+- [ ] Configure Black/Flake8 settings
+- [ ] Test container build and network access
+- [ ] Commit `.devcontainer/` to version control
 
 ---
 

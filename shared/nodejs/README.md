@@ -4,13 +4,13 @@ Network-sandboxed development container for Node.js projects with GitHub Copilot
 
 ## 🎯 What's Included
 
--   **Node.js 20 LTS** - Latest long-term support version
--   **NPM & Yarn** - Package managers pre-configured
--   **TypeScript** - Global TypeScript installation
--   **ESLint & Prettier** - Code quality tools
--   **Nodemon** - Auto-reload during development
--   **Network Sandboxing** - Controlled outbound access via proxy
--   **GitHub Copilot** - Pre-configured and ready to use
+- **Node.js 20 LTS** - Latest long-term support version
+- **NPM & Yarn** - Package managers pre-configured
+- **TypeScript** - Global TypeScript installation
+- **ESLint & Prettier** - Code quality tools
+- **Nodemon** - Auto-reload during development
+- **Network Sandboxing** - Controlled outbound access via proxy
+- **GitHub Copilot** - Pre-configured and ready to use
 
 ## 🚀 Quick Start
 
@@ -30,26 +30,26 @@ Edit `.devcontainer/docker-compose.yml`:
 
 ```yaml
 environment:
-    - REPO_URL=https://github.com/yourorg/yourrepo.git
-    - REPO_NAME=yourrepo # Must match the repo name
-    - NETWORK_PROFILE=strict
+  - REPO_URL=https://github.com/yourorg/yourrepo.git
+  - REPO_NAME=yourrepo # Must match the repo name
+  - NETWORK_PROFILE=strict
 ```
 
 ### 3. Customize Network Policy (Optional)
 
 The template comes with a `strict` profile that includes:
 
--   `registry.npmjs.org` - NPM packages
--   `github.com` - Git operations
--   GitHub Copilot endpoints
+- `registry.npmjs.org` - NPM packages
+- `github.com` - Git operations
+- GitHub Copilot endpoints
 
 To add more domains, edit `.devcontainer/network-policy.json`:
 
 ```json
 {
-    "customAllowlist": {
-        "domains": ["cdn.example.com", ".yourapi.com"]
-    }
+  "customAllowlist": {
+    "domains": ["cdn.example.com", ".yourapi.com"]
+  }
 }
 ```
 
@@ -93,17 +93,17 @@ Edit `.devcontainer/devcontainer.json`:
 
 ```json
 {
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "dbaeumer.vscode-eslint",
-                "esbenp.prettier-vscode",
-                "ms-vscode.vscode-typescript-next",
-                "GitHub.copilot",
-                "your-extension-here"
-            ]
-        }
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "GitHub.copilot",
+        "your-extension-here"
+      ]
     }
+  }
 }
 ```
 
@@ -113,13 +113,13 @@ For Express/React/Next.js apps, configure ports in `.devcontainer/devcontainer.j
 
 ```json
 {
-    "forwardPorts": [3000, 3001, 5000],
-    "portsAttributes": {
-        "3000": {
-            "label": "App",
-            "onAutoForward": "notify"
-        }
+  "forwardPorts": [3000, 3001, 5000],
+  "portsAttributes": {
+    "3000": {
+      "label": "App",
+      "onAutoForward": "notify"
     }
+  }
 }
 ```
 
@@ -144,7 +144,13 @@ npm test
 
 ```json
 {
-    "allowedDomains": ["registry.npmjs.org", ".npmjs.org", "github.com", "api.github.com", ".githubusercontent.com"]
+  "allowedDomains": [
+    "registry.npmjs.org",
+    ".npmjs.org",
+    "github.com",
+    "api.github.com",
+    ".githubusercontent.com"
+  ]
 }
 ```
 
@@ -152,16 +158,16 @@ npm test
 
 ```json
 {
-    "customAllowlist": {
-        "domains": [
-            ".yarnpkg.com", // If using Yarn
-            "registry.yarnpkg.com",
-            "cdn.jsdelivr.net", // CDN resources
-            "unpkg.com", // Package CDN
-            "fonts.googleapis.com", // Google Fonts
-            "fonts.gstatic.com"
-        ]
-    }
+  "customAllowlist": {
+    "domains": [
+      ".yarnpkg.com", // If using Yarn
+      "registry.yarnpkg.com",
+      "cdn.jsdelivr.net", // CDN resources
+      "unpkg.com", // Package CDN
+      "fonts.googleapis.com", // Google Fonts
+      "fonts.gstatic.com"
+    ]
+  }
 }
 ```
 
@@ -247,11 +253,11 @@ The template includes TypeScript globally. For project-specific config:
 ```json
 // tsconfig.json
 {
-    "compilerOptions": {
-        "target": "ES2020",
-        "module": "commonjs",
-        "outDir": "./dist"
-    }
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "./dist"
+  }
 }
 ```
 
@@ -281,13 +287,13 @@ Check `.devcontainer/devcontainer.json`:
 
 ```json
 {
-    "forwardPorts": [3000],
-    "portsAttributes": {
-        "3000": {
-            "label": "App",
-            "onAutoForward": "notify"
-        }
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "App",
+      "onAutoForward": "notify"
     }
+  }
 }
 ```
 
@@ -303,9 +309,9 @@ Or edit `network-policy.json` directly.
 
 ## 📚 Additional Resources
 
--   [Node.js in Containers](https://code.visualstudio.com/docs/containers/overview)
--   [NPM Proxy Configuration](https://docs.npmjs.com/cli/v9/using-npm/config#proxy)
--   [DevContainer Node Features](https://github.com/devcontainers/features/tree/main/src/node)
+- [Node.js in Containers](https://code.visualstudio.com/docs/containers/overview)
+- [NPM Proxy Configuration](https://docs.npmjs.com/cli/v9/using-npm/config#proxy)
+- [DevContainer Node Features](https://github.com/devcontainers/features/tree/main/src/node)
 
 ## 🔄 Keeping Template Updated
 
@@ -313,9 +319,9 @@ When Node.js LTS versions change:
 
 1. Update base image in `nodejs/Dockerfile`:
 
-    ```dockerfile
-    FROM mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
-    ```
+   ```dockerfile
+   FROM mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+   ```
 
 2. Test thoroughly with your projects
 
@@ -323,15 +329,15 @@ When Node.js LTS versions change:
 
 ## ✅ Checklist for New Projects
 
--   [ ] Copy template to project directory
--   [ ] Update `REPO_URL` in `docker-compose.yml`
--   [ ] Update `REPO_NAME` in `docker-compose.yml`
--   [ ] Add project-specific domains to `network-policy.json`
--   [ ] Configure forwarded ports for your app
--   [ ] Add project-specific VS Code extensions
--   [ ] Update `post-create.sh` with build commands
--   [ ] Test container build and network access
--   [ ] Commit `.devcontainer/` to version control
+- [ ] Copy template to project directory
+- [ ] Update `REPO_URL` in `docker-compose.yml`
+- [ ] Update `REPO_NAME` in `docker-compose.yml`
+- [ ] Add project-specific domains to `network-policy.json`
+- [ ] Configure forwarded ports for your app
+- [ ] Add project-specific VS Code extensions
+- [ ] Update `post-create.sh` with build commands
+- [ ] Test container build and network access
+- [ ] Commit `.devcontainer/` to version control
 
 ---
 
