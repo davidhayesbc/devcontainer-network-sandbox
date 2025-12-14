@@ -22,6 +22,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # Configure git to use credential helper
 RUN git config --global credential.helper store
 
+# Deploy a unified NuGet config for root-level operations
+COPY nuget.config /tmp/nuget.config
+RUN mkdir -p /root/.nuget/NuGet && cp /tmp/nuget.config /root/.nuget/NuGet/NuGet.Config
+
 # Install CSharpier globally (through proxy)
 RUN dotnet tool install -g csharpier || true
 
@@ -34,11 +38,7 @@ WORKDIR /workspaces
 # Switch to vscode user
 USER vscode
 
-# Configure NuGet to use proxy
-RUN mkdir -p ~/.nuget/NuGet && \
-    echo '<?xml version="1.0" encoding="utf-8"?>\n\
-    <configuration>\n\
-    <config>\n\
-    <add key="http_proxy" value="http://proxy:3128" />\n\
-    </config>\n\
-    </configuration>' > ~/.nuget/NuGet/NuGet.Config
+# Deploy unified NuGet config for the vscode user and fix ownership
+RUN mkdir -p /home/vscode/.nuget/NuGet && \
+    cp /tmp/nuget.config /home/vscode/.nuget/NuGet/NuGet.Config && \
+    chown -R vscode:vscode /home/vscode/.nuget
