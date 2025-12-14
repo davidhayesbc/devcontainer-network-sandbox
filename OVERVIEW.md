@@ -208,7 +208,7 @@ Select-String "copilot" .devcontainer/proxy/squid.conf
 ## Documentation
 
 - [Full README](.devcontainer/README.md) - Complete setup guide
-- [Templates README](.devcontainer/shared/shared/templates/nodejs/README.md) - Node.js template (similar location for Python in the same folder)
+- [Node.js Template README](.devcontainer/shared/shared/nodejs/README.md) - Node.js template (similar location for Python in the same folder)
 
 ## Support
 
