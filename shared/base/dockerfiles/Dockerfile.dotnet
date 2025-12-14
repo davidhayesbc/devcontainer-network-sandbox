@@ -1,5 +1,5 @@
 # Base image with .NET 10 SDK
-FROM mcr.microsoft.com/devcontainers/dotnet:1-10.0-bookworm
+FROM mcr.microsoft.com/devcontainers/dotnet:dev-10.0
 
 # Set up proxy environment variables (will be configured by docker-compose)
 ENV http_proxy=http://proxy:3128
