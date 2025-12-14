@@ -6,7 +6,6 @@
 
   // Configure git to use the repository inside the container
   "initializeCommand": "echo 'Initializing devcontainer...'",
-  "onCreateCommand": ".devcontainer/shared/base/scripts/on-create.sh",
   "postCreateCommand": ".devcontainer/shared/base/scripts/post-create.sh",
 
   // Features to install

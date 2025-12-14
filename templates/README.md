@@ -10,17 +10,17 @@ This directory contains reusable devcontainer templates for different project ty
 
 **Use for**:
 
--   ASP.NET Core applications
--   .NET console applications
--   Blazor applications
--   Class libraries
+- ASP.NET Core applications
+- .NET console applications
+- Blazor applications
+- Class libraries
 
 **Key features**:
 
--   .NET 10 SDK
--   CSharpier formatting
--   NuGet package management
--   Network sandboxing with strict/development profiles
+- .NET 10 SDK
+- CSharpier formatting
+- NuGet package management
+- Network sandboxing with strict/development profiles
 
 ---
 
@@ -30,17 +30,17 @@ This directory contains reusable devcontainer templates for different project ty
 
 **Use for**:
 
--   Express.js applications
--   React/Vue/Angular applications
--   Node.js APIs
--   TypeScript projects
+- Express.js applications
+- React/Vue/Angular applications
+- Node.js APIs
+- TypeScript projects
 
 **Key features**:
 
--   Node.js 20 LTS
--   NPM/Yarn support
--   ESLint/Prettier
--   Network sandboxing
+- Node.js 20 LTS
+- NPM/Yarn support
+- ESLint/Prettier
+- Network sandboxing
 
 ---
 
@@ -50,17 +50,17 @@ This directory contains reusable devcontainer templates for different project ty
 
 **Use for**:
 
--   Flask/Django applications
--   Data science projects
--   Python scripts
--   Machine learning projects
+- Flask/Django applications
+- Data science projects
+- Python scripts
+- Machine learning projects
 
 **Key features**:
 
--   Python 3.11+
--   pip/poetry support
--   Jupyter notebooks
--   Network sandboxing
+- Python 3.11+
+- pip/poetry support
+- Jupyter notebooks
+- Network sandboxing
 
 ---
 
@@ -113,7 +113,6 @@ Each template follows this structure:
 │   ├── squid.conf            # Active proxy config
 │   └── squid.conf.template   # Config template
 └── scripts/
-    ├── on-create.sh          # Clone repository
     ├── post-create.sh        # Install dependencies
     ├── update-network-policy.sh
     ├── switch-profile.sh
@@ -126,15 +125,15 @@ Each template follows this structure:
 
 When adapting a template for a new project:
 
--   [ ] Update `REPO_URL` in `docker-compose.yml`
--   [ ] Update `REPO_NAME` in `docker-compose.yml`
--   [ ] Update `name` in `devcontainer.json`
--   [ ] Modify `Dockerfile.*` with project-specific tools
--   [ ] Update `network-policy.json` with required domains
--   [ ] Update `post-create.sh` with build/install commands
--   [ ] Update forwarded ports in `devcontainer.json`
--   [ ] Add language-specific VS Code extensions
--   [ ] Test the setup end-to-end
+- [ ] Update `REPO_URL` in `docker-compose.yml`
+- [ ] Update `REPO_NAME` in `docker-compose.yml`
+- [ ] Update `name` in `devcontainer.json`
+- [ ] Modify `Dockerfile.*` with project-specific tools
+- [ ] Update `network-policy.json` with required domains
+- [ ] Update `post-create.sh` with build/install commands
+- [ ] Update forwarded ports in `devcontainer.json`
+- [ ] Add language-specific VS Code extensions
+- [ ] Test the setup end-to-end
 
 ## Network Policy Per Language
 
@@ -144,7 +143,13 @@ Minimum required domains:
 
 ```json
 {
-    "allowedDomains": ["api.nuget.org", ".nuget.org", "github.com", "api.github.com", ".githubusercontent.com"]
+  "allowedDomains": [
+    "api.nuget.org",
+    ".nuget.org",
+    "github.com",
+    "api.github.com",
+    ".githubusercontent.com"
+  ]
 }
 ```
 
@@ -154,7 +159,13 @@ Minimum required domains:
 
 ```json
 {
-    "allowedDomains": ["registry.npmjs.org", ".npmjs.org", "github.com", "api.github.com", ".githubusercontent.com"]
+  "allowedDomains": [
+    "registry.npmjs.org",
+    ".npmjs.org",
+    "github.com",
+    "api.github.com",
+    ".githubusercontent.com"
+  ]
 }
 ```
 
@@ -164,14 +175,14 @@ Minimum required domains:
 
 ```json
 {
-    "allowedDomains": [
-        "pypi.org",
-        ".pypi.org",
-        "files.pythonhosted.org",
-        "github.com",
-        "api.github.com",
-        ".githubusercontent.com"
-    ]
+  "allowedDomains": [
+    "pypi.org",
+    ".pypi.org",
+    "files.pythonhosted.org",
+    "github.com",
+    "api.github.com",
+    ".githubusercontent.com"
+  ]
 }
 ```
 
@@ -199,16 +210,16 @@ To add a new template:
 
 Planned templates:
 
--   [ ] Go
--   [ ] Rust
--   [ ] Java/Kotlin
--   [ ] Ruby
--   [ ] PHP
+- [ ] Go
+- [ ] Rust
+- [ ] Java/Kotlin
+- [ ] Ruby
+- [ ] PHP
 
 ## Support
 
 See the main [README.md](../README.md) for:
 
--   Troubleshooting network issues
--   Managing domains and profiles
--   Advanced configuration options
+- Troubleshooting network issues
+- Managing domains and profiles
+- Advanced configuration options
