@@ -22,9 +22,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # Configure git to use credential helper
 RUN git config --global credential.helper store
 
-# Deploy a unified NuGet config for root-level operations
-COPY nuget.config /tmp/nuget.config
-RUN mkdir -p /root/.nuget/NuGet && cp /tmp/nuget.config /root/.nuget/NuGet/NuGet.Config
+# Deploy a unified NuGet config for root and the vscode user
+RUN mkdir -p /root/.nuget/NuGet /home/vscode/.nuget/NuGet
+COPY nuget.config /root/.nuget/NuGet/NuGet.Config
+RUN cp /root/.nuget/NuGet/NuGet.Config /home/vscode/.nuget/NuGet/NuGet.Config && chown -R vscode:vscode /home/vscode/.nuget
 
 # Install CSharpier globally (through proxy)
 RUN dotnet tool install -g csharpier || true
@@ -38,7 +39,4 @@ WORKDIR /workspaces
 # Switch to vscode user
 USER vscode
 
-# Deploy unified NuGet config for the vscode user and fix ownership
-RUN mkdir -p /home/vscode/.nuget/NuGet && \
-    cp /tmp/nuget.config /home/vscode/.nuget/NuGet/NuGet.Config && \
-    chown -R vscode:vscode /home/vscode/.nuget
+# NuGet config for the vscode user is deployed earlier to avoid duplicate copying
