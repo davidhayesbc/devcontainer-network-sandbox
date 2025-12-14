@@ -6,39 +6,39 @@ Note: Templates and shared components are provided by the `devcontainer-network-
 
 ## 🔒 Key Features
 
--   **Network Sandboxing**: All outbound traffic goes through a filtering proxy
--   **Allowlist-Based**: Default deny with explicit domain allowlisting
--   **Multiple Profiles**: Switch between strict, development, and open modes
--   **Simple Management**: JSON-based configuration with helper scripts
--   **Git Integration**: Auto-clones repository into container on creation
--   **Copilot Ready**: Pre-configured with required endpoints for GitHub Copilot
+- **Network Sandboxing**: All outbound traffic goes through a filtering proxy
+- **Allowlist-Based**: Default deny with explicit domain allowlisting
+- **Multiple Profiles**: Switch between strict, development, and open modes
+- **Simple Management**: JSON-based configuration with helper scripts
+- **Git Integration**: Auto-clones repository into container on creation
+- **Copilot Ready**: Pre-configured with required endpoints for GitHub Copilot
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
--   Docker and Docker Compose installed
--   VS Code with Remote - Containers extension
--   Git credentials configured on host machine
+- Docker and Docker Compose installed
+- VS Code with Remote - Containers extension
+- Git credentials configured on host machine
 
 ### First Time Setup
 
 1. **Open in devcontainer**:
 
-    ```bash
-    # In VS Code, press F1 and select:
-    # "Dev Containers: Reopen in Container"
-    ```
+   ```bash
+   # In VS Code, press F1 and select:
+   # "Dev Containers: Reopen in Container"
+   ```
 
 2. **Wait for initialization**:
 
-    - Repository will be cloned into `/workspaces/Game`
-    - NuGet packages will be restored
-    - Container will use the `strict` network profile by default
+   - Repository will be cloned into `/workspaces/Game`
+   - NuGet packages will be restored
+   - Container will use the `strict` network profile by default
 
 3. **Verify Copilot is working**:
-    - Open any C# file
-    - Start typing - Copilot suggestions should appear
+   - Open any C# file
+   - Start typing - Copilot suggestions should appear
 
 ## 📁 Directory Structure
 
@@ -53,7 +53,6 @@ Note: Templates and shared components are provided by the `devcontainer-network-
 │   ├── squid.conf            # Active Squid proxy configuration
 │   └── squid.conf.template   # Template for generating configs
 └── scripts/
-    ├── on-create.sh                  # Clone repository on container creation
     ├── post-create.sh                # Restore packages and build
     ├── update-network-policy.sh      # Regenerate proxy config
     ├── switch-profile.sh             # Switch network profiles
@@ -68,19 +67,19 @@ Note: Templates and shared components are provided by the `devcontainer-network-
 
 Minimal access for .NET development with Copilot:
 
--   `github.com` and `*.githubusercontent.com`
--   `api.nuget.org` and `*.nuget.org`
--   GitHub Copilot API endpoints
+- `github.com` and `*.githubusercontent.com`
+- `api.nuget.org` and `*.nuget.org`
+- GitHub Copilot API endpoints
 
 ### Development
 
 Adds common development services:
 
--   All strict profile domains
--   `registry.npmjs.org` (NPM)
--   `*.docker.io` (Docker Hub)
--   `*.microsoft.com`
--   `stackoverflow.com`
+- All strict profile domains
+- `registry.npmjs.org` (NPM)
+- `*.docker.io` (Docker Hub)
+- `*.microsoft.com`
+- `stackoverflow.com`
 
 ### Open
 
@@ -122,10 +121,10 @@ Edit `.devcontainer/network-policy.json`:
 
 ```json
 {
-    "activeProfile": "strict",
-    "customAllowlist": {
-        "domains": ["myapi.com", ".cdn.example.com"]
-    }
+  "activeProfile": "strict",
+  "customAllowlist": {
+    "domains": ["myapi.com", ".cdn.example.com"]
+  }
 }
 ```
 
@@ -151,30 +150,30 @@ The configuration file supports:
 
 ```json
 {
-    "activeProfile": "strict|development|open",
+  "activeProfile": "strict|development|open",
 
-    "profiles": {
-        "strict": {
-            "description": "Profile description",
-            "allowedDomains": ["domain1.com", ".wildcard.com"],
-            "allowedIPs": [],
-            "blockAll": true
-        }
-    },
-
-    "customAllowlist": {
-        "description": "Always allowed regardless of profile",
-        "domains": ["custom.com"],
-        "ips": []
+  "profiles": {
+    "strict": {
+      "description": "Profile description",
+      "allowedDomains": ["domain1.com", ".wildcard.com"],
+      "allowedIPs": [],
+      "blockAll": true
     }
+  },
+
+  "customAllowlist": {
+    "description": "Always allowed regardless of profile",
+    "domains": ["custom.com"],
+    "ips": []
+  }
 }
 ```
 
 ### Domain Matching Rules
 
--   `example.com` - Matches exactly `example.com`
--   `.example.com` - Matches `example.com` and all subdomains (`api.example.com`, `cdn.example.com`, etc.)
--   `*.example.com` - Matches only subdomains (NOT the root domain)
+- `example.com` - Matches exactly `example.com`
+- `.example.com` - Matches `example.com` and all subdomains (`api.example.com`, `cdn.example.com`, etc.)
+- `*.example.com` - Matches only subdomains (NOT the root domain)
 
 ## 🔍 Troubleshooting
 
@@ -233,25 +232,25 @@ The setup is designed to be templated. Key files to modify:
 
 1. **Repository URL**: Edit `docker-compose.yml`
 
-    ```yaml
-    environment:
-        - REPO_URL=https://github.com/yourorg/yourrepo.git
-        - REPO_NAME=yourrepo
-    ```
+   ```yaml
+   environment:
+     - REPO_URL=https://github.com/yourorg/yourrepo.git
+     - REPO_NAME=yourrepo
+   ```
 
 2. **Different Language Stack**: Create new Dockerfile
 
-    ```bash
-    # Copy and modify for Node.js
-    cp Dockerfile.dotnet Dockerfile.node
-    # Edit Dockerfile.node to use node base image
-    # Update docker-compose.yml to use new Dockerfile
-    ```
+   ```bash
+   # Copy and modify for Node.js
+   cp Dockerfile.dotnet Dockerfile.node
+   # Edit Dockerfile.node to use node base image
+   # Update docker-compose.yml to use new Dockerfile
+   ```
 
 3. **Add Custom Tools**: Edit `Dockerfile.dotnet`
-    ```dockerfile
-    RUN apt-get install -y your-tool
-    ```
+   ```dockerfile
+   RUN apt-get install -y your-tool
+   ```
 
 ### Monitor All Traffic
 
@@ -259,11 +258,11 @@ Enable logging of allowed requests in `network-policy.json`:
 
 ```json
 {
-    "logging": {
-        "enabled": true,
-        "logAllowed": true,
-        "logBlocked": true
-    }
+  "logging": {
+    "enabled": true,
+    "logAllowed": true,
+    "logBlocked": true
+  }
 }
 ```
 
@@ -292,10 +291,10 @@ To add LiteLLM proxy for logging Copilot API calls:
 
 All configuration is in version control:
 
--   `network-policy.json` - Track allowed domains per project
--   `docker-compose.yml` - Service configuration
--   `Dockerfile.*` - Development environment dependencies
--   `scripts/` - Automation and management tools
+- `network-policy.json` - Track allowed domains per project
+- `docker-compose.yml` - Service configuration
+- `Dockerfile.*` - Development environment dependencies
+- `scripts/` - Automation and management tools
 
 Changes to network policy can be reviewed in PRs just like code.
 
@@ -315,19 +314,19 @@ To share this setup with your team:
 1. **Commit all `.devcontainer/` files** to your repository
 2. **Document required credentials**: Git, any tokens needed
 3. **Team members run**:
-    ```bash
-    git pull
-    # Open in VS Code
-    # F1 -> "Dev Containers: Reopen in Container"
-    ```
+   ```bash
+   git pull
+   # Open in VS Code
+   # F1 -> "Dev Containers: Reopen in Container"
+   ```
 
 Everyone gets identical sandboxed environments!
 
 ## 📚 Additional Resources
 
--   [VS Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers)
--   [Squid Proxy Documentation](http://www.squid-cache.org/Doc/)
--   [GitHub Copilot in Containers](https://docs.github.com/en/copilot)
+- [VS Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers)
+- [Squid Proxy Documentation](http://www.squid-cache.org/Doc/)
+- [GitHub Copilot in Containers](https://docs.github.com/en/copilot)
 
 ## 🆘 Support
 

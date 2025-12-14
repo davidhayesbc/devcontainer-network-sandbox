@@ -4,9 +4,9 @@ This guide explains how to extract the shared devcontainer components into a sep
 
 ## 📋 Prerequisites
 
--   Git installed
--   GitHub CLI (`gh`) or web access to create repositories
--   Write access to your organization or personal GitHub account
+- Git installed
+- GitHub CLI (`gh`) or web access to create repositories
+- Write access to your organization or personal GitHub account
 
 ## 🚀 Step 1: Create Shared Repository
 
@@ -209,8 +209,7 @@ devcontainer-network-sandbox/
 │   ├── proxy/
 │   │   └── squid.conf.template
 │   └── scripts/
-│       ├── on-create.sh
-│       └── post-create.sh
+│   │       └── post-create.sh
 ├── tools/
 │   ├── update-network-policy.ps1
 │   ├── switch-profile.ps1
@@ -249,28 +248,28 @@ After setting up, verify:
 
 1. **Shared components are accessible:**
 
-    ```bash
-    ls .devcontainer/shared/base/dockerfiles/
-    ls .devcontainer/shared/tools/
-    ```
+   ```bash
+   ls .devcontainer/shared/base/dockerfiles/
+   ls .devcontainer/shared/tools/
+   ```
 
 2. **Container builds:**
 
-    - Open in VS Code
-    - F1 → "Dev Containers: Rebuild Container"
-    - Should build successfully
+   - Open in VS Code
+   - F1 → "Dev Containers: Rebuild Container"
+   - Should build successfully
 
 3. **Scripts work:**
 
-    ```powershell
-    .devcontainer/shared/tools/view-blocked-requests.ps1
-    ```
+   ```powershell
+   .devcontainer/shared/tools/view-blocked-requests.ps1
+   ```
 
 4. **Submodule status (if using submodule):**
-    ```bash
-    git submodule status
-    # Should show the commit hash and path
-    ```
+   ```bash
+   git submodule status
+   # Should show the commit hash and path
+   ```
 
 ## 🔧 Troubleshooting
 
@@ -303,9 +302,9 @@ git commit -m "Remove shared components submodule"
 
 ## 📚 Additional Resources
 
--   [Git Submodules Documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
--   [VS Code DevContainers](https://code.visualstudio.com/docs/devcontainers/containers)
--   [Shared Components README](shared/README.md)
+- [Git Submodules Documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+- [VS Code DevContainers](https://code.visualstudio.com/docs/devcontainers/containers)
+- [Shared Components README](shared/README.md)
 
 ---
 

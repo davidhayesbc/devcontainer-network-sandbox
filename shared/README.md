@@ -6,9 +6,9 @@ This directory contains reusable devcontainer components for network-sandboxed d
 
 These files are designed to be shared across multiple projects via:
 
--   **Git submodule** (recommended)
--   Direct copy for standalone use
--   Reference from a central templates repository
+- **Git submodule** (recommended)
+- Direct copy for standalone use
+- Reference from a central templates repository
 
 ## 📦 Contents
 
@@ -22,7 +22,6 @@ shared/
 │   ├── proxy/
 │   │   └── squid.conf.template  # Proxy configuration template
 │   └── scripts/
-│       ├── on-create.sh         # Repository cloning script
 │       └── post-create.sh       # Dependency installation script
 ├── tools/
 │   ├── update-network-policy.ps1      # Regenerate proxy config
@@ -43,22 +42,22 @@ shared/
 
 1. **Create the shared repository:**
 
-    ```bash
-    # Create a new repo (e.g., devcontainer-network-sandbox)
-    gh repo create yourorg/devcontainer-network-sandbox --public
+   ```bash
+   # Create a new repo (e.g., devcontainer-network-sandbox)
+   gh repo create yourorg/devcontainer-network-sandbox --public
 
-    # Extract this directory
-    cd /path/to/Game/.devcontainer
-    cp -r shared /tmp/devcontainer-network-sandbox
-    cd /tmp/devcontainer-network-sandbox
+   # Extract this directory
+   cd /path/to/Game/.devcontainer
+   cp -r shared /tmp/devcontainer-network-sandbox
+   cd /tmp/devcontainer-network-sandbox
 
-    # Initialize and push
-    git init
-    git add .
-    git commit -m "Initial commit: Network-sandboxed devcontainer templates"
-    git remote add origin https://github.com/yourorg/devcontainer-network-sandbox.git
-    git push -u origin main
-    ```
+   # Initialize and push
+   git init
+   git add .
+   git commit -m "Initial commit: Network-sandboxed devcontainer templates"
+   git remote add origin https://github.com/yourorg/devcontainer-network-sandbox.git
+   git push -u origin main
+   ```
 
 ### Using in Projects
 
@@ -96,7 +95,7 @@ Add to `devcontainer.json`:
 
 ```json
 {
-    "initializeCommand": "curl -L https://github.com/yourorg/devcontainer-network-sandbox/archive/main.tar.gz | tar xz -C .devcontainer/shared --strip-components=1"
+  "initializeCommand": "curl -L https://github.com/yourorg/devcontainer-network-sandbox/archive/main.tar.gz | tar xz -C .devcontainer/shared --strip-components=1"
 }
 ```
 
@@ -121,30 +120,29 @@ your-project/
 
 ```json
 {
-    "name": "Your Project Name",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "devcontainer",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "name": "Your Project Name",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
-    "onCreateCommand": ".devcontainer/shared/base/scripts/on-create.sh",
-    "postCreateCommand": ".devcontainer/shared/base/scripts/post-create.sh",
+  "postCreateCommand": ".devcontainer/shared/base/scripts/post-create.sh",
 
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "GitHub.copilot",
-                "GitHub.copilot-chat"
-                // Add language-specific extensions
-            ],
-            "settings": {
-                "http.proxy": "http://proxy:3128",
-                "http.proxyStrictSSL": false
-            }
-        }
-    },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+        // Add language-specific extensions
+      ],
+      "settings": {
+        "http.proxy": "http://proxy:3128",
+        "http.proxyStrictSSL": false
+      }
+    }
+  },
 
-    "remoteUser": "vscode",
-    "forwardPorts": [3000, 5000] // Adjust for your project
+  "remoteUser": "vscode",
+  "forwardPorts": [3000, 5000] // Adjust for your project
 }
 ```
 
@@ -154,58 +152,58 @@ your-project/
 version: "3.8"
 
 services:
-    proxy:
-        image: ubuntu/squid:latest
-        container_name: yourproject-proxy
-        volumes:
-            - ./proxy/squid.conf:/etc/squid/squid.conf:ro
-            - squid-cache:/var/spool/squid
-        ports:
-            - "3128:3128"
-        networks:
-            - devcontainer-network
-        restart: unless-stopped
-        healthcheck:
-            test: ["CMD", "squidclient", "-h", "localhost", "mgr:info"]
-            interval: 30s
-            timeout: 10s
-            retries: 3
+  proxy:
+    image: ubuntu/squid:latest
+    container_name: yourproject-proxy
+    volumes:
+      - ./proxy/squid.conf:/etc/squid/squid.conf:ro
+      - squid-cache:/var/spool/squid
+    ports:
+      - "3128:3128"
+    networks:
+      - devcontainer-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "squidclient", "-h", "localhost", "mgr:info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-    devcontainer:
-        build:
-            context: ./shared/base/dockerfiles
-            dockerfile: Dockerfile.dotnet # or Dockerfile.node, Dockerfile.python
-        container_name: yourproject-devcontainer
-        volumes:
-            - workspace-data:/workspaces
-            - ./shared/base/scripts:/tmp/devcontainer-scripts:ro
-            - ~/.gitconfig:/home/vscode/.gitconfig:ro
-            - ~/.ssh:/home/vscode/.ssh:ro
-        environment:
-            - REPO_URL=https://github.com/yourorg/yourrepo.git
-            - REPO_NAME=yourrepo
-            - NETWORK_PROFILE=strict
-        networks:
-            - devcontainer-network
-        depends_on:
-            proxy:
-                condition: service_healthy
-        command: sleep infinity
-        cap_drop:
-            - NET_RAW
-        dns:
-            - 8.8.8.8
+  devcontainer:
+    build:
+      context: ./shared/base/dockerfiles
+      dockerfile: Dockerfile.dotnet # or Dockerfile.node, Dockerfile.python
+    container_name: yourproject-devcontainer
+    volumes:
+      - workspace-data:/workspaces
+      - ./shared/base/scripts:/tmp/devcontainer-scripts:ro
+      - ~/.gitconfig:/home/vscode/.gitconfig:ro
+      - ~/.ssh:/home/vscode/.ssh:ro
+    environment:
+      - REPO_URL=https://github.com/yourorg/yourrepo.git
+      - REPO_NAME=yourrepo
+      - NETWORK_PROFILE=strict
+    networks:
+      - devcontainer-network
+    depends_on:
+      proxy:
+        condition: service_healthy
+    command: sleep infinity
+    cap_drop:
+      - NET_RAW
+    dns:
+      - 8.8.8.8
 
 networks:
-    devcontainer-network:
-        driver: bridge
-        internal: false
+  devcontainer-network:
+    driver: bridge
+    internal: false
 
 volumes:
-    workspace-data:
-        name: yourproject-workspace
-    squid-cache:
-        name: yourproject-squid-cache
+  workspace-data:
+    name: yourproject-workspace
+  squid-cache:
+    name: yourproject-squid-cache
 ```
 
 ## 🔄 Updating Shared Components
@@ -268,46 +266,46 @@ These scripts operate on the project-level `network-policy.json` file.
 
 Base images are designed to be minimal. Projects can:
 
--   Extend Dockerfiles in their own `.devcontainer/`
--   Add project-specific tools in `postCreateCommand`
--   Use VS Code features for additional tooling
+- Extend Dockerfiles in their own `.devcontainer/`
+- Add project-specific tools in `postCreateCommand`
+- Use VS Code features for additional tooling
 
 ### Network Policy
 
 Projects control their own network access via `network-policy.json`. The shared components:
 
--   Provide the proxy infrastructure
--   Supply management tools
--   Include sensible defaults
+- Provide the proxy infrastructure
+- Supply management tools
+- Include sensible defaults
 
 Each project determines:
 
--   Active profile (strict/development/open)
--   Custom allowlists
--   Copilot endpoint configuration
+- Active profile (strict/development/open)
+- Custom allowlists
+- Copilot endpoint configuration
 
 ## 🔐 Security Benefits
 
--   **Audit trail**: All network changes tracked in git
--   **Consistency**: Same security posture across projects
--   **Easy updates**: Security improvements propagate to all projects
--   **Review process**: Network policy changes visible in PRs
+- **Audit trail**: All network changes tracked in git
+- **Consistency**: Same security posture across projects
+- **Easy updates**: Security improvements propagate to all projects
+- **Review process**: Network policy changes visible in PRs
 
 ## 📖 Documentation
 
 For detailed usage instructions, see:
 
--   Project-level README.md
--   [Network Policy Configuration](../network-policy.json)
--   [VS Code DevContainers Docs](https://code.visualstudio.com/docs/devcontainers)
+- Project-level README.md
+- [Network Policy Configuration](../network-policy.json)
+- [VS Code DevContainers Docs](https://code.visualstudio.com/docs/devcontainers)
 
 ## 🆘 Support
 
 Issues with shared components:
 
--   File issues in the shared repository
--   Discuss in your organization's dev channels
--   Review project-level logs with `view-blocked-requests.ps1`
+- File issues in the shared repository
+- Discuss in your organization's dev channels
+- Review project-level logs with `view-blocked-requests.ps1`
 
 ---
 
