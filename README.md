@@ -2,6 +2,8 @@
 
 This directory contains a complete devcontainer setup with network access control for secure development with GitHub Copilot.
 
+Note: Templates and shared components are provided by the `devcontainer-network-sandbox` repository and exposed as a submodule at `.devcontainer/shared`. The top-level `.devcontainer/templates` is a symlink pointing to `.devcontainer/shared/templates` for backward compatibility and convenience.
+
 ## 🔒 Key Features
 
 -   **Network Sandboxing**: All outbound traffic goes through a filtering proxy
