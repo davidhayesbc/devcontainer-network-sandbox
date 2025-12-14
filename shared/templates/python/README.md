@@ -19,10 +19,10 @@ Network-sandboxed development container for Python projects with GitHub Copilot 
 
 ```bash
 # From the Game repository root
-cp -r .devcontainer/templates/python/.devcontainer /path/to/your/python-project/
+cp -r .devcontainer/shared/shared/python/templates/.devcontainer /path/to/your/python-project/
 
 # Or using PowerShell on Windows
-Copy-Item -Recurse .devcontainer/templates/python/.devcontainer /path/to/your/python-project/
+Copy-Item -Recurse .devcontainer/shared/shared/python/templates/.devcontainer /path/to/your/python-project/
 ```
 
 ### 2. Configure Repository Settings
@@ -76,7 +76,7 @@ code /path/to/your/python-project
 
 ### Add System Dependencies
 
-Edit `.devcontainer/Dockerfile.python`:
+Edit `.devcontainer/shared/shared/python/Dockerfile`:
 
 ```dockerfile
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -90,7 +90,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 ### Install Global Python Packages
 
-Edit `.devcontainer/Dockerfile.python`:
+Edit `.devcontainer/shared/shared/python/Dockerfile`:
 
 ```dockerfile
 RUN pip install --no-cache-dir \
@@ -449,7 +449,7 @@ pip install -r requirements.txt
 
 When Python versions change:
 
-1. Update base image in `Dockerfile.python`:
+1. Update base image in `python/Dockerfile`:
 
     ```dockerfile
     FROM mcr.microsoft.com/devcontainers/python:1-3.13-bookworm

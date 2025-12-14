@@ -46,7 +46,7 @@ Note: Templates and shared components are provided by the `devcontainer-network-
 .devcontainer/
 ├── devcontainer.json          # Main devcontainer configuration
 ├── docker-compose.yml         # Multi-service setup
-├── Dockerfile.dotnet          # .NET development container image
+├── shared/shared/dotnet/Dockerfile   # .NET development container image (shared location)
 ├── network-policy.json        # Network access control configuration
 ├── network-policy.schema.json # JSON schema for validation
 ├── proxy/
@@ -242,12 +242,12 @@ The setup is designed to be templated. Key files to modify:
 
    ```bash
    # Copy and modify for Node.js
-   cp Dockerfile.dotnet Dockerfile.node
-   # Edit Dockerfile.node to use node base image
+   cp dotnet/Dockerfile nodejs/Dockerfile
+   # Edit shared/shared/nodejs/Dockerfile to use node base image
    # Update docker-compose.yml to use new Dockerfile
    ```
 
-3. **Add Custom Tools**: Edit `Dockerfile.dotnet`
+3. **Add Custom Tools**: Edit `dotnet/Dockerfile`
    ```dockerfile
    RUN apt-get install -y your-tool
    ```

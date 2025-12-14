@@ -18,10 +18,10 @@ Network-sandboxed development container for Node.js projects with GitHub Copilot
 
 ```bash
 # From the Game repository root
-cp -r .devcontainer/templates/nodejs/.devcontainer /path/to/your/node-project/
+cp -r .devcontainer/shared/shared/nodejs/templates/.devcontainer /path/to/your/node-project/
 
 # Or using PowerShell on Windows
-Copy-Item -Recurse .devcontainer/templates/nodejs/.devcontainer /path/to/your/node-project/
+Copy-Item -Recurse .devcontainer/shared/shared/nodejs/templates/.devcontainer /path/to/your/node-project/
 ```
 
 ### 2. Configure Repository Settings
@@ -75,7 +75,7 @@ code /path/to/your/node-project
 
 ### Add NPM Global Packages
 
-Edit `.devcontainer/Dockerfile.node`:
+Edit `.devcontainer/shared/shared/nodejs/Dockerfile`:
 
 ```dockerfile
 RUN npm install -g \
@@ -125,7 +125,7 @@ For Express/React/Next.js apps, configure ports in `.devcontainer/devcontainer.j
 
 ### Add Build Scripts
 
-Edit `.devcontainer/templates/nodejs/post-create.sh`:
+Edit `.devcontainer/shared/shared/nodejs/templates/post-create.sh`:
 
 ```bash
 # Build TypeScript
@@ -311,7 +311,7 @@ Or edit `network-policy.json` directly.
 
 When Node.js LTS versions change:
 
-1. Update base image in `Dockerfile.node`:
+1. Update base image in `nodejs/Dockerfile`:
 
     ```dockerfile
     FROM mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm

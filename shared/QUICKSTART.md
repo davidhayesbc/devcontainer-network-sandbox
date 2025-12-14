@@ -16,7 +16,7 @@ Pre-configured development environments that:
 
 | Template                     | Use For                    | Base Image  | Package Manager |
 | ---------------------------- | -------------------------- | ----------- | --------------- |
-| [.NET](../Dockerfile.dotnet) | ASP.NET, Blazor, C#        | .NET 10 SDK | NuGet           |
+| [.NET](./dotnet/Dockerfile) | ASP.NET, Blazor, C#        | .NET 10 SDK | NuGet           |
 | [Node.js](nodejs/)           | Express, React, Next.js    | Node 20 LTS | NPM/Yarn        |
 | [Python](python/)            | Flask, Django, FastAPI, ML | Python 3.12 | pip/Poetry      |
 
@@ -37,13 +37,13 @@ Copy-Item -Recurse .devcontainer /path/to/other-dotnet-project/
 **For Node.js:**
 
 ```powershell
-Copy-Item -Recurse .devcontainer/templates/nodejs/.devcontainer /path/to/your/node-project/
+Copy-Item -Recurse .devcontainer/shared/shared/nodejs/templates/.devcontainer /path/to/your/node-project/
 ```
 
 **For Python:**
 
 ```powershell
-Copy-Item -Recurse .devcontainer/templates/python/.devcontainer /path/to/your/python-project/
+Copy-Item -Recurse .devcontainer/shared/shared/python/templates/.devcontainer /path/to/your/python-project/
 ```
 
 ### Step 2: Configure Your Repository

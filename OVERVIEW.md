@@ -80,7 +80,7 @@ code /path/to/Game
 
 ```bash
 # Copy Node.js template
-cp -r .devcontainer/templates/nodejs/.devcontainer /path/to/node-project/
+cp -r .devcontainer/shared/shared/nodejs/templates/.devcontainer /path/to/node-project/
 
 # Update repo settings
 cd /path/to/node-project/.devcontainer
@@ -94,7 +94,7 @@ cd /path/to/node-project/.devcontainer
 
 ```bash
 # Copy Python template
-cp -r .devcontainer/templates/python/.devcontainer /path/to/python-project/
+cp -r .devcontainer/shared/shared/python/templates/.devcontainer /path/to/python-project/
 
 # Update repo settings
 cd /path/to/python-project/.devcontainer
@@ -110,7 +110,7 @@ cd /path/to/python-project/.devcontainer
 ├── README.md                   # Full documentation
 ├── devcontainer.json          # VS Code config
 ├── docker-compose.yml         # Multi-service setup
-├── Dockerfile.dotnet          # .NET image
+├── shared/shared/dotnet/Dockerfile   # .NET image (shared location)
 ├── network-policy.json        # Access control ⭐
 ├── proxy/
 │   └── squid.conf            # Proxy config (auto-generated)
@@ -204,7 +204,7 @@ Select-String "copilot" .devcontainer/proxy/squid.conf
 ## Documentation
 
 -   [Full README](.devcontainer/README.md) - Complete setup guide
--   [Templates README](.devcontainer/templates/README.md) - Using with other languages
+-   [Templates README](.devcontainer/shared/shared/templates/nodejs/README.md) - Node.js template (similar location for Python in the same folder)
 
 ## Support
 

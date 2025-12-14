@@ -16,9 +16,9 @@ These files are designed to be shared across multiple projects via:
 shared/
 ├── base/
 │   ├── dockerfiles/
-│   │   ├── Dockerfile.dotnet    # .NET development image
-│   │   ├── Dockerfile.node      # Node.js development image
-│   │   └── Dockerfile.python    # Python development image
+│   │   ├── dotnet/Dockerfile     # .NET development image
+│   │   ├── nodejs/Dockerfile      # Node.js development image
+│   │   └── python/Dockerfile      # Python development image
 │   ├── proxy/
 │   │   └── squid.conf.template  # Proxy configuration template
 │   └── scripts/
@@ -108,7 +108,7 @@ your-project/
 └── .devcontainer/
     ├── shared/                    # Git submodule → this repo
     ├── devcontainer.json         # Project-specific VS Code config
-    ├── docker-compose.yml        # References shared/base/dockerfiles
+    ├── docker-compose.yml        # References shared/shared/dotnet (or per-language folders)
     ├── network-policy.json       # Project-specific network rules
     ├── network-policy.schema.json
     ├── proxy/
@@ -171,12 +171,12 @@ services:
 
   devcontainer:
     build:
-      context: ./shared/base/dockerfiles
-      dockerfile: Dockerfile.dotnet # or Dockerfile.node, Dockerfile.python
+      context: ./shared/shared/dotnet
+      dockerfile: Dockerfile # or Dockerfile (in the language folder: dotnet/nodejs/python)
     container_name: yourproject-devcontainer
     volumes:
       - workspace-data:/workspaces
-      - ./shared/base/scripts:/tmp/devcontainer-scripts:ro
+      - ./shared/shared/base/scripts:/tmp/devcontainer-scripts:ro
       - ~/.gitconfig:/home/vscode/.gitconfig:ro
       - ~/.ssh:/home/vscode/.ssh:ro
     environment:
@@ -257,8 +257,8 @@ These scripts operate on the project-level `network-policy.json` file.
 
 ### Adding a New Language
 
-1. Create `Dockerfile.<language>` in `base/dockerfiles/`
-2. Create language-specific setup in `templates/<language>/`
+1. Create a new subdirectory under `shared/shared/` for the language and add a `Dockerfile` there (e.g., `shared/shared/nodejs/Dockerfile`).
+2. Create language-specific setup in `shared/shared/<language>/templates/` (e.g., `shared/shared/nodejs/templates/`).
 3. Document required network domains
 4. Update this README
 
